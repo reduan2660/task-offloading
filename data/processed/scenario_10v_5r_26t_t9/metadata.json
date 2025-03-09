@@ -1,0 +1,1 @@
+{"scenario_id": "scenario_10v_5r_26t_t9", "n_vehicles": 10, "n_rsus": 5, "n_tasks": 26, "task_distribution": "random", "area_size": 1000.0, "timestamp": "2025-03-09T08:54:37.102855", "parent_scenario": "scenario_10v_5r_26t", "time_step": 9, "dt": 1.0}

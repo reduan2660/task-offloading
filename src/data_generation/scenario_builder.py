@@ -31,8 +31,18 @@ class ScenarioBuilder:
         Returns:
             Tuple of (road_network, rsus, vehicles, connections)
         """
-        # Load road network
-        road_network = nx.read_graphml(f"{filepath_prefix}_road_network.graphml")
+        # Load road network from JSON
+        import json
+        with open(f"{filepath_prefix}_road_network.json", 'r') as f:
+            data = json.load(f)
+        road_network = nx.node_link_graph(data)
+        
+        # Restore position tuples
+        for node in road_network.nodes():
+            if 'pos_x' in road_network.nodes[node] and 'pos_y' in road_network.nodes[node]:
+                x = road_network.nodes[node]['pos_x']
+                y = road_network.nodes[node]['pos_y']
+                road_network.nodes[node]['pos'] = (x, y)
         
         # Load RSUs
         rsu_df = pd.read_csv(f"{filepath_prefix}_rsus.csv")

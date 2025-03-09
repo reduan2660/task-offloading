@@ -1,0 +1,46 @@
+tasks:
+  - n_small: 20
+    n_medium: 10
+    n_large: 5
+    filename: "mixed_tasks.csv"
+
+dependent_tasks:
+  - n_tasks: 15
+    max_depth: 3
+    branching_factor: 2
+    filename: "dependent_tasks.csv"
+
+networks:
+  - type: "grid"
+    rows: 5
+    cols: 5
+    n_rsus: 8
+    n_vehicles: 15
+    filename_prefix: "grid_network"
+  
+  - type: "random"
+    n_nodes: 25
+    area_size: 1000.0
+    connectivity: 0.3
+    n_rsus: 10
+    n_vehicles: 20
+    filename_prefix: "random_network"
+
+scenarios:
+  - n_vehicles: 10
+    n_rsus: 5
+    n_small_tasks: 15
+    n_medium_tasks: 8
+    n_large_tasks: 3
+    task_distribution: "random"
+  
+  - n_vehicles: 20
+    n_rsus: 10
+    n_small_tasks: 30
+    n_medium_tasks: 15
+    n_large_tasks: 5
+    task_distribution: "capability"
+
+time_evolution:
+  - time_steps: 10
+    dt: 1.0

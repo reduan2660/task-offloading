@@ -279,8 +279,20 @@ class NetworkGenerator:
             connections: Dictionary of vehicle-RSU connections
             filepath_prefix: Prefix for the output filepaths
         """
-        # Save road network
-        nx.write_graphml(road_network, f"{filepath_prefix}_road_network.graphml")
+        # Convert node position tuples to strings before saving
+        road_network_save = road_network.copy()
+        for node in road_network_save.nodes():
+            if 'pos' in road_network_save.nodes[node]:
+                pos = road_network_save.nodes[node]['pos']
+                road_network_save.nodes[node]['pos_x'] = pos[0]
+                road_network_save.nodes[node]['pos_y'] = pos[1]
+                del road_network_save.nodes[node]['pos']
+        
+        # Save road network as JSON instead of GraphML
+        import json
+        data = nx.node_link_data(road_network_save)
+        with open(f"{filepath_prefix}_road_network.json", 'w') as f:
+            json.dump(data, f)
         
         # Save RSUs
         rsu_df = pd.DataFrame([rsu.to_dict() for rsu in rsus])
